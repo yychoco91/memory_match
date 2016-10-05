@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Match</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://learning-fuze.github.io/memory_match/v0.1/script.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            $(".back").click(function(){
+                $(this).hide();
+            });
+        });
+
+    </script>
+
+</head>
+<body background="images/background_image.png">
+
+<header>
+
+    <img src="images/van_gogh_signature.png" id="logo" height="95" width="252"/>
+    <br>
+
+    <h1>Match Madness</h1>
+
+    <nav>
+        <ul>
+
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<br>
+
+<div class="stats">
+
+    <h2>Stats</h2>
+
+    <div class="games-played">
+
+        <h3 class="label">Games Played</h3>
+        <div class="value"></div>
+
+    </div>
+
+    <div class="attempts">
+
+        <h3 class="label">Attempts</h3>
+        <div class="value"></div>
+
+    </div>
+
+    <div class="accuracy">
+
+        <h3 class="label">Accuracy</h3>
+        <div class="value"></div>
+
+    </div>
+
+    <br>
+
+    <button type="button" class="reset">Reset Game</button>
+
+</div>
+
+<div id="game-area">
+
+      <div class="card">
+
+        <div class="front">
+            <img src="images/calla_lillies.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+        <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/calla_lillies.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/orange_vase.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/orange_vase.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/cafe_terrace.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/cafe_terrace.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+
+
+    <br><br><br> <br><br><br> <br><br><br>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/sunflowers.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/sunflowers.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/irises.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/irises.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/cherry_blossoms.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/cherry_blossoms.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <br><br><br> <br><br><br> <br><br><br>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/bridge.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/bridge.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/ocean.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/ocean.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/river.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+
+    </div>
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/river.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

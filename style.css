@@ -1,0 +1,59 @@
+header{
+    background-color: lightskyblue;
+    color: white;
+    padding:.75em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#logo {
+    float: left;
+}
+
+h1{
+ text-align: center;
+}
+
+nav{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color:#515151;
+}
+
+ul{
+    text-align: right;
+    margin-top: -5px;
+}
+li{
+    display: inline;
+    margin: 10px;
+}
+
+.stats{
+    float: left;
+    padding: 1em;
+    margin-right:50px;
+    max-width:160px;  /*width: 10vw;*/
+    height:500px;  /*height: 35vw;*/
+    background-color: #fffabe;
+}
+
+#game-area div{
+    display: block;
+    float:left;
+    margin-right: 15px;
+    width: 120px;
+    height: 150px;
+    background-color: #fffabe;
+    }
+
+.card{
+    position: relative;left: 0; top: 0;
+}
+
+.front{
+    position: relative; top: 0; left: 0;
+}
+
+.back{
+    position: absolute; top: 0px; left: 0px;
+}
