@@ -6,15 +6,60 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="http://learning-fuze.github.io/memory_match/v0.1/script.js"></script>
+    <!--<script src="http://learning-fuze.github.io/memory_match/v0.1/script.js"></script>-->
 
 
     <script>
         $(document).ready(function(){
-            $(".back").click(function(){
+            /*$(".back").click(function(){
                 $(this).hide();
-            });
-        });
+            });*/
+
+           $(".back").click(card_clicked);
+
+           var first_card_clicked= null;
+           var second_card_clicked= null;
+           var total_possible_matches= 2;   //number of matches change according to cards
+           var match_counter=0;
+
+           function card_clicked(){
+               $(this).hide();
+
+               if (first_card_clicked===null){
+                   first_card_clicked= this;
+                  return;
+               } else{
+                   second_card_clicked = this;
+
+                   console.log('card 1:', first_card_clicked, 'card 2:', second_card_clicked);
+                   // use jquery to get the src of the img for each card and compare them
+                   var secondCard_img=$(second_card_clicked).prev().find('img').attr('src');
+                   var firstCard_img= $(first_card_clicked).prev().find('img').attr('src');
+
+                   console.log(secondCard_img);
+                   //console.log(firstCard_img);
+
+                   if (firstCard_img === secondCard_img){
+                       match_counter++;
+                       first_card_clicked=null;
+                       second_card_clicked=null;
+                         if(match_counter== total_possible_matches){
+                             $("#game-area").append($("<h1>").html("You win"));
+                         }
+
+                   }else{
+                        window.setTimeout(function(){
+                            // flip / hide both cards then set to null
+                            $(first_card_clicked).show();
+                            $(second_card_clicked).show();
+                            first_card_clicked=null;
+                            second_card_clicked=null;
+                        }, 2000)//
+                   }
+               }
+           }
+
+       });
 
     </script>
 
@@ -71,7 +116,11 @@
 
 </div>
 
+
+
 <div id="game-area">
+
+    <h1></h1>
 
       <div class="card">
 
@@ -121,7 +170,7 @@
 
 
     </div>
-
+<!--
     <div class="card">
 
         <div class="front">
@@ -300,6 +349,7 @@
         </div>
 
     </div>
+    -->
 </div>
 
 
