@@ -8,62 +8,128 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--<script src="http://learning-fuze.github.io/memory_match/v0.1/script.js"></script>-->
 
-
     <script>
+        var first_card_clicked= null;
+        var second_card_clicked= null;
+        var total_possible_matches= 9;   //number of matches change according to cards
+        var match_counter=0;
+        var matches=0;
+        var attempts=0;
+        var accuracy=0;   // accuracy= matches/attempts *100
+        var games_played=0;
+
+        function shuffle(){
+            var images=["images/bridge.jpg","images/calla_lillies.jpg","images/cafe_terrace.jpg","images/cherry_blossoms.jpg",
+                "images/irises.jpg","images/ocean.jpg","images/orange_vase.jpg","images/river.jpg","images/sunflowers.jpg"];
+
+            images = images.concat(images);
+
+            //shuffle the array
+            while(images.length) {
+
+                var index = Math.floor(Math.random() * images.length);
+
+                var newCard=$('<div>',{class:'card'});
+                var backCard=$('<div>',{class:'back'});
+                var backImage=$('<img>',{src:'images/marbled_paper.jpg',
+                    height:"150",
+                    width:"120"});
+                var frontCard=$('<div>',{class:'front'});
+                console.log("the image will be", images[index]);
+                console.log("The index is ",index);
+
+                var frontImage=$('<img>',{src:images[index],
+                    height:"150",
+                    width:"120"});
+
+                images.splice(index,1);
+
+                $(backCard).append(backImage);
+                $(frontCard).append(frontImage);
+                $(newCard).append(frontCard, backCard);
+                $("#game-area").append($(newCard));
+
+            } //end of while loop
+            $(".back").click(card_clicked);
+        } //end of function
+
+        function display_stats(){
+            $(".attempts .value").text(attempts);
+            accuracy= Math.round((matches/attempts)*100) + '%';
+            $(".accuracy .value").text(accuracy);
+            $(".games-played .value").text(games_played);
+        }
+        function reset_stats(){
+            accuracy=0;
+            matches=0;
+            attempts=0;
+            display_stats();
+        }
+
+        function card_clicked(){
+            $(this).hide();
+
+            if (first_card_clicked===null){
+                first_card_clicked= this;
+                return;
+            } else{
+                second_card_clicked = this;
+                attempts++;
+                display_stats();
+                console.log("Attempts "+ attempts);
+                console.log('card 1:', first_card_clicked, 'card 2:', second_card_clicked);
+                // use jquery to get the src of the img for each card and compare them
+                var secondCard_img=$(second_card_clicked).prev().find('img').attr('src');
+                var firstCard_img= $(first_card_clicked).prev().find('img').attr('src');
+
+                console.log(secondCard_img);
+                //console.log(firstCard_img);
+
+                if (firstCard_img === secondCard_img){
+                    match_counter++;
+                    //increment when cards match
+                    matches++;
+                    console.log("Matches "+ matches);
+                    first_card_clicked=null;
+                    second_card_clicked=null;
+                    if(match_counter== total_possible_matches){
+                        $("#game-area").append($("<h1>").html("You win"));
+                    }
+
+                }else{
+                    window.setTimeout(function(){
+                        // flip / hide both cards then set to null
+                        $(first_card_clicked).show();
+                        $(second_card_clicked).show();
+                        first_card_clicked=null;
+                        second_card_clicked=null;
+                    }, 2000)
+                }
+            }
+        }
+
         $(document).ready(function(){
             /*$(".back").click(function(){
                 $(this).hide();
             });*/
+            shuffle();
 
-           $(".back").click(card_clicked);
 
-           var first_card_clicked= null;
-           var second_card_clicked= null;
-           var total_possible_matches= 2;   //number of matches change according to cards
-           var match_counter=0;
+            $(".reset").click(function(){
+                games_played++;
+                reset_stats();
+                display_stats();
+                $("#game-area ").empty();
+                shuffle();
+                $(".card >.back").show();
 
-           function card_clicked(){
-               $(this).hide();
-
-               if (first_card_clicked===null){
-                   first_card_clicked= this;
-                  return;
-               } else{
-                   second_card_clicked = this;
-
-                   console.log('card 1:', first_card_clicked, 'card 2:', second_card_clicked);
-                   // use jquery to get the src of the img for each card and compare them
-                   var secondCard_img=$(second_card_clicked).prev().find('img').attr('src');
-                   var firstCard_img= $(first_card_clicked).prev().find('img').attr('src');
-
-                   console.log(secondCard_img);
-                   //console.log(firstCard_img);
-
-                   if (firstCard_img === secondCard_img){
-                       match_counter++;
-                       first_card_clicked=null;
-                       second_card_clicked=null;
-                         if(match_counter== total_possible_matches){
-                             $("#game-area").append($("<h1>").html("You win"));
-                         }
-
-                   }else{
-                        window.setTimeout(function(){
-                            // flip / hide both cards then set to null
-                            $(first_card_clicked).show();
-                            $(second_card_clicked).show();
-                            first_card_clicked=null;
-                            second_card_clicked=null;
-                        }, 2000)//
-                   }
-               }
-           }
-
+                //$("#game-area >h1").empty($("<h1>"));
+            });
        });
 
     </script>
-
 </head>
+
 <body background="images/background_image.png">
 
 <header>
@@ -75,7 +141,6 @@
 
     <nav>
         <ul>
-
             <li><a href="about.html">About</a></li>
             <li><a href="#">Settings</a></li>
         </ul>
@@ -96,12 +161,16 @@
 
     </div>
 
+    <br>
+
     <div class="attempts">
 
         <h3 class="label">Attempts</h3>
         <div class="value"></div>
 
     </div>
+
+    <br>
 
     <div class="accuracy">
 
@@ -110,17 +179,15 @@
 
     </div>
 
-    <br>
+    <br><br>
 
     <button type="button" class="reset">Reset Game</button>
 
 </div>
 
-
-
 <div id="game-area">
 
-    <h1></h1>
+    <!--<h1></h1>
 
       <div class="card">
 
@@ -168,20 +235,6 @@
             <img src="images/marbled_paper.jpg" height="150" width="120" />
         </div>
 
-
-    </div>
-<!--
-    <div class="card">
-
-        <div class="front">
-            <img src="images/cafe_terrace.jpg" height="150" width="120" />
-        </div>
-
-        <div class="back">
-            <img src="images/marbled_paper.jpg" height="150" width="120" />
-        </div>
-
-
     </div>
 
     <div class="card">
@@ -196,7 +249,17 @@
 
     </div>
 
+    <div class="card">
 
+        <div class="front">
+            <img src="images/cafe_terrace.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>
 
     <br><br><br> <br><br><br> <br><br><br>
 
@@ -246,7 +309,6 @@
             <img src="images/marbled_paper.jpg" height="150" width="120" />
         </div>
 
-
     </div>
 
     <div class="card">
@@ -258,7 +320,6 @@
         <div class="back">
             <img src="images/marbled_paper.jpg" height="150" width="120" />
         </div>
-
 
     </div>
 
@@ -322,20 +383,6 @@
             <img src="images/marbled_paper.jpg" height="150" width="120" />
         </div>
 
-
-    </div>
-
-    <div class="card">
-
-        <div class="front">
-            <img src="images/river.jpg" height="150" width="120" />
-        </div>
-
-        <div class="back">
-            <img src="images/marbled_paper.jpg" height="150" width="120" />
-        </div>
-
-
     </div>
 
     <div class="card">
@@ -349,9 +396,20 @@
         </div>
 
     </div>
-    -->
+
+    <div class="card">
+
+        <div class="front">
+            <img src="images/river.jpg" height="150" width="120" />
+        </div>
+
+        <div class="back">
+            <img src="images/marbled_paper.jpg" height="150" width="120" />
+        </div>
+
+    </div>-->
+
 </div>
-
 
 </body>
 </html>
